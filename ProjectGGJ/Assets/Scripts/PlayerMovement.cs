@@ -18,6 +18,10 @@ public class PlayerMovement : MonoBehaviour {
 	float speedSmoothTime = 0.2f;
 	float speedSmoothVelocity;
 	float currentSpeed;
+	[SerializeField]
+	float defaultHeight;
+
+	float jumpHeight = 0.0f;
 
 	Rigidbody rb;
 
@@ -31,14 +35,13 @@ public class PlayerMovement : MonoBehaviour {
 		xInput = Input.GetAxis ("Horizontal");
 		//Vertical input
 		yInput = Input.GetAxis ("Vertical");
-	}
 
-	void FixedUpdate(){
 		//Movement direction in 2D, top down view
 		Vector2 movement = new Vector2 (xInput, yInput);
 		//Just the movement vector but normalized
 		Vector2 inputDirection = movement.normalized;
 
+		//Rotation
 		if (inputDirection != Vector2.zero) {
 			float targetRotation = Mathf.Atan2 (xInput, yInput) * Mathf.Rad2Deg;
 			transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle (transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
@@ -48,6 +51,29 @@ public class PlayerMovement : MonoBehaviour {
 		float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDirection.magnitude;
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
 
-		rb.MovePosition (transform.position + transform.forward * currentSpeed * Time.deltaTime);
+		if (IsGrounded()) {
+			if (Input.GetKeyDown (KeyCode.Space))
+				rb.MovePosition (transform.position + transform.forward * currentSpeed + transform.up * defaultHeight * Time.deltaTime);
+			else
+				rb.MovePosition (transform.position + transform.forward * currentSpeed * Time.deltaTime);
+		}
+
+	}
+
+	void Jump()
+	{
+		if (IsGrounded ())
+			jumpHeight = defaultHeight;
+		else
+			jumpHeight = 0.0f;
+
+	}
+		
+	bool IsGrounded()
+	{
+		if(Physics.Raycast(transform.position, Vector3.down, 0.6f))
+			return true;
+
+		return false;
 	}
 }

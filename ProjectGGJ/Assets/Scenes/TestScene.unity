@@ -309,7 +309,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda2b1dd5fe02bd43ab917d5f68780ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  walkSpeed: 0.2
+  runSpeed: 4
+  defaultHeight: 0.1
 --- !u!54 &985412271
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -497,12 +499,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1555900033}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bda2b1dd5fe02bd43ab917d5f68780ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  walkSpeed: 0.2
+  runSpeed: 4
+  defaultHeight: 0.1
 --- !u!54 &1555900035
 Rigidbody:
   m_ObjectHideFlags: 0

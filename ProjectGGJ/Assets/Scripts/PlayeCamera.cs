@@ -43,7 +43,6 @@ public class PlayeCamera : MonoBehaviour {
 	{
 		Vector3 desiredPos = target.position + offset;
 		Vector3 smoothPos = Vector3.Lerp (transform.position, desiredPos, smoothSpeed);
-		Debug.Log (smoothPos);
 		transform.position = smoothPos;
 	}
 }
