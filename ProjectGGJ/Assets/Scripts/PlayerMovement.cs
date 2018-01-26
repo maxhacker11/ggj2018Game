@@ -24,7 +24,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		rb.velocity = new Vector3 (xInput * moveSpeed, rb.velocity.y, yInput * moveSpeed);
+		rb.velocity = new Vector3 (xInput, rb.velocity.y, yInput);
+		rb.velocity = rb.velocity.normalized * moveSpeed * Time.deltaTime;
 		Debug.Log (rb.velocity.magnitude);
 	}
 }
