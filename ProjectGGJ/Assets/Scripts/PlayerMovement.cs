@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour {
 	float yInput;
 
 	[SerializeField]
-<<<<<<< HEAD
 	float walkSpeed = 2.0f;
 	[SerializeField]
 	float runSpeed = 4.0f;
@@ -22,9 +21,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	[SerializeField]
 	float jumpHeight = 0.0f;
-=======
-	float moveSpeed = 2.0f;
->>>>>>> parent of 2b209cd... Added player movement
 
 	Rigidbody rb;
 
@@ -34,7 +30,6 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update(){
-<<<<<<< HEAD
 		//Horizontal input
 		xInput = Input.GetAxis ("Horizontal");
 		//Vertical input
@@ -61,26 +56,15 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		rb.velocity = new Vector3 (walkSpeed * xInput, rb.velocity.y, walkSpeed * yInput);
-				
+
 
 	}
-		
+
 	bool IsGrounded()
 	{
 		if(Physics.Raycast(transform.position, Vector3.down, 0.6f))
 			return true;
 
 		return false;
-=======
-		xInput = Input.GetAxis("Horizontal");
-		yInput = Input.GetAxis("Vertical");
-	}
-
-	// Update is called once per frame
-	void FixedUpdate () {
-		rb.velocity = new Vector3 (xInput, rb.velocity.y, yInput);
-		rb.velocity = rb.velocity.normalized * moveSpeed * Time.deltaTime;
-		Debug.Log (rb.velocity.magnitude);
->>>>>>> parent of 2b209cd... Added player movement
 	}
 }
