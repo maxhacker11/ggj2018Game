@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		//Comment
 	}
 	
 	// Update is called once per frame
