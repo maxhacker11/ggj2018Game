@@ -4,13 +4,27 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+	float xInput;
+	float yInput;
+
+	[SerializeField]
+	float moveSpeed = 2.0f;
+
+	Rigidbody rb;
+
 	// Use this for initialization
 	void Start () {
-		//Comment asd
+		rb = GetComponent<Rigidbody> ();
 	}
-	
+
+	void Update(){
+		xInput = Input.GetAxis("Horizontal");
+		yInput = Input.GetAxis("Vertical");
+	}
+
 	// Update is called once per frame
-	void Update () {
-		
+	void FixedUpdate () {
+		rb.velocity = new Vector3 (xInput * moveSpeed, rb.velocity.y, yInput * moveSpeed);
+		Debug.Log (rb.velocity.magnitude);
 	}
 }
