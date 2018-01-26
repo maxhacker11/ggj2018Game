@@ -56,12 +56,13 @@ public class PlayerMovement : MonoBehaviour {
 		float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDirection.magnitude;
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
 
-		if (IsGrounded()) {
-			if (Input.GetKeyDown (KeyCode.Space))
-				rb.MovePosition (transform.position + transform.forward * currentSpeed + transform.up * defaultHeight * Time.deltaTime);
-			else
-				rb.MovePosition (transform.position + transform.forward * currentSpeed * Time.deltaTime);
+		if(Input.GetKeyDown(KeyCode.Space))
+		{
+			rb.velocity = new Vector3 (rb.velocity.x, 10.0f, rb.velocity.z);
 		}
+
+		rb.velocity = new Vector3 (walkSpeed * xInput, rb.velocity.y, walkSpeed * yInput);
+				
 
 	}
 
@@ -69,9 +70,6 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		if (IsGrounded ())
 			jumpHeight = defaultHeight;
-		else
-			jumpHeight = 0.0f;
-
 	}
 		
 	bool IsGrounded()

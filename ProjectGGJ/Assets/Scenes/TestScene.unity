@@ -309,9 +309,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda2b1dd5fe02bd43ab917d5f68780ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 0.2
+  walkSpeed: 2
   runSpeed: 4
-  defaultHeight: 0.1
+  defaultHeight: 1
 --- !u!54 &985412271
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -504,9 +504,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda2b1dd5fe02bd43ab917d5f68780ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 0.2
+  walkSpeed: 2
   runSpeed: 4
-  defaultHeight: 0.1
+  defaultHeight: 1
 --- !u!54 &1555900035
 Rigidbody:
   m_ObjectHideFlags: 0
