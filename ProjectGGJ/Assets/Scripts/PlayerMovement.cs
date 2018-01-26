@@ -18,9 +18,8 @@ public class PlayerMovement : MonoBehaviour {
 	float speedSmoothTime = 0.2f;
 	float speedSmoothVelocity;
 	float currentSpeed;
-	[SerializeField]
-	float defaultHeight;
 
+	[SerializeField]
 	float jumpHeight = 0.0f;
 
 	Rigidbody rb;
@@ -53,18 +52,12 @@ public class PlayerMovement : MonoBehaviour {
 
 		if(Input.GetKeyDown(KeyCode.Space))
 		{
-			rb.velocity = new Vector3 (rb.velocity.x, 10.0f, rb.velocity.z);
+			rb.velocity = new Vector3 (rb.velocity.x, jumpHeight, rb.velocity.z);
 		}
 
 		rb.velocity = new Vector3 (walkSpeed * xInput, rb.velocity.y, walkSpeed * yInput);
 				
 
-	}
-
-	void Jump()
-	{
-		if (IsGrounded ())
-			jumpHeight = defaultHeight;
 	}
 		
 	bool IsGrounded()

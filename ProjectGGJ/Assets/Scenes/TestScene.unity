@@ -311,7 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 2
   runSpeed: 4
-  defaultHeight: 1
+  jumpHeight: 10
 --- !u!54 &985412271
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -506,7 +506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 2
   runSpeed: 4
-  defaultHeight: 1
+  jumpHeight: 0
 --- !u!54 &1555900035
 Rigidbody:
   m_ObjectHideFlags: 0
