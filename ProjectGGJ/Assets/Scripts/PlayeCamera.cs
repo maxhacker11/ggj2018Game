@@ -27,9 +27,13 @@ public class PlayeCamera : MonoBehaviour {
 			//If the first player is active set the second on as target
 			if (activeOne) {
 				target = player2.transform;
+				player1.GetComponent<PlayerMovement>().enabled = false;
+				player2.GetComponent<PlayerMovement>().enabled = true;
 				activeOne = false;
 			} else {
 				target = player1.transform;
+				player2.GetComponent<PlayerMovement>().enabled = false;
+				player1.GetComponent<PlayerMovement>().enabled = true;
 				activeOne = true;
 			}
 		}
