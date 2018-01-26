@@ -54,11 +54,22 @@ public class PlayerMovement : MonoBehaviour {
 		float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDirection.magnitude;
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
 
+<<<<<<< HEAD
 		if (!isFat) {
 			if (Input.GetKeyDown (KeyCode.Space) && IsGrounded ()) {
 				rb.velocity = new Vector3 (rb.velocity.x, jumpHeight, rb.velocity.z);
 			} else
 				jumpHeight = startingHeight;
+=======
+		if (IsGrounded ()) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				rb.velocity = new Vector3 (rb.velocity.x, jumpHeight, rb.velocity.z);
+			}
+		}
+
+		rb.velocity = new Vector3 (currentSpeed * xInput, rb.velocity.y, currentSpeed * yInput);
+
+>>>>>>> b60fec2ceae3cc88427b1f01a864b184c74036a2
 
 			rb.velocity = new Vector3 (currentSpeed * xInput, rb.velocity.y, currentSpeed * yInput);
 		}
