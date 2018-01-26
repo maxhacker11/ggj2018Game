@@ -309,9 +309,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda2b1dd5fe02bd43ab917d5f68780ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 2
-  runSpeed: 4
-  jumpHeight: 10
+  walkSpeed: 4
+  runSpeed: 8
+  jumpHeight: 5
+  isFat: 0
 --- !u!54 &985412271
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -506,7 +507,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 2
   runSpeed: 4
-  jumpHeight: 0
+  jumpHeight: 10
+  isFat: 1
 --- !u!54 &1555900035
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -581,7 +583,7 @@ Transform:
   m_GameObject: {fileID: 1555900033}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.9, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4

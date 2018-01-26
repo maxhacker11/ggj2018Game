@@ -18,15 +18,19 @@ public class PlayerMovement : MonoBehaviour {
 	float speedSmoothTime = 0.2f;
 	float speedSmoothVelocity;
 	float currentSpeed;
+	float startingHeight;
 
 	[SerializeField]
-	float jumpHeight = 0.0f;
+	float jumpHeight = 10.0f;
+	[SerializeField]
+	bool isFat;
 
 	Rigidbody rb;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
+		startingHeight = jumpHeight;
 	}
 
 	void Update(){
@@ -50,19 +54,20 @@ public class PlayerMovement : MonoBehaviour {
 		float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDirection.magnitude;
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
 
-		if(Input.GetKeyDown(KeyCode.Space))
-		{
-			rb.velocity = new Vector3 (rb.velocity.x, jumpHeight, rb.velocity.z);
+		if (!isFat) {
+			if (Input.GetKeyDown (KeyCode.Space) && IsGrounded ()) {
+				rb.velocity = new Vector3 (rb.velocity.x, jumpHeight, rb.velocity.z);
+			} else
+				jumpHeight = startingHeight;
+
+			rb.velocity = new Vector3 (currentSpeed * xInput, rb.velocity.y, currentSpeed * yInput);
 		}
-
-		rb.velocity = new Vector3 (walkSpeed * xInput, rb.velocity.y, walkSpeed * yInput);
-
-
 	}
 
 	bool IsGrounded()
 	{
-		if(Physics.Raycast(transform.position, Vector3.down, 0.6f))
+		//ADD CHARACTER HEIGHT / 2 + 0.1F
+		if(Physics.Raycast(transform.position, Vector3.down, GetComponent<Collider>().bounds.extents.y + 0.1f))
 			return true;
 
 		return false;
