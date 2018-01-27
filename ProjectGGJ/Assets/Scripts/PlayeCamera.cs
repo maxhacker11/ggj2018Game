@@ -14,6 +14,7 @@ public class PlayeCamera : MonoBehaviour {
 	Transform target;
 	[SerializeField]
 	GameObject particlePrefab;
+	GameObject soulParticleInstance;
 
 	[SerializeField]
 	float transmissionDelay = 3.0f;
@@ -32,20 +33,21 @@ public class PlayeCamera : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.E) && Time.time - lastTransmission > transmissionDelay) 
 		{ 
 			lastTransmission = Time.time;
-			GameObject soulParticle= Instantiate (particlePrefab, transform.position, transform.rotation) as GameObject;
 			//If the first player is active set the second on as target
 			if (activeOne) {
+				soulParticleInstance = Instantiate (particlePrefab, player1.transform.position, transform.rotation) as GameObject;
 				target = player2.transform;
 				player1.GetComponent<PlayerMovement> ().enabled = false;
 				player2.GetComponent<PlayerMovement> ().enabled = true;
 				activeOne = false;
 			} else {
+				soulParticleInstance = Instantiate (particlePrefab, player2.transform.position, transform.rotation) as GameObject;
 				target = player1.transform;
 				player1.GetComponent<PlayerMovement> ().enabled = true;
 				player2.GetComponent<PlayerMovement> ().enabled = false;
 				activeOne = true;
 			}
-			soulParticle.GetComponent<ParticleMovement> ().target = target;
+			soulParticleInstance.GetComponent<ParticleMovement> ().target = target;
 		}
 	}
 
