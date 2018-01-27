@@ -59,9 +59,8 @@ public class PlayerMovement : MonoBehaviour {
 				rb.velocity = new Vector3 (rb.velocity.x, jumpHeight, rb.velocity.z);
 			} else
 				jumpHeight = startingHeight;
-
-			rb.velocity = new Vector3 (currentSpeed * xInput, rb.velocity.y, currentSpeed * yInput);
 		}
+		rb.velocity = new Vector3 (currentSpeed * xInput, rb.velocity.y, currentSpeed * yInput);
 	}
 
 	bool IsGrounded()

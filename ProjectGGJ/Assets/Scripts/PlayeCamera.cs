@@ -3,7 +3,7 @@
 public class PlayeCamera : MonoBehaviour {
 
 	[HideInInspector]
-	public static bool activeOne;
+	public bool activeOne;
 
 	public GameObject player1;
 	public GameObject player2;
