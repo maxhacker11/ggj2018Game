@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
 
 	GameObject infoPanel;
 	Text scoreText;
+
 	PlayeCamera cameraScript;
 
 	// Use this for initialization
