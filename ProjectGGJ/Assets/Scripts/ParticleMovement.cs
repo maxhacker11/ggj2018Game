@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ParticleMovement : MonoBehaviour {
+	[SerializeField]
+	public Transform target;
+	[SerializeField]
+	float particleSpeed;
 
-	// Use this for initialization
-	void Start () {
-		
+	void Update()
+	{
+		if (transform.position == target.position)
+			Destroy (gameObject);
+		transform.position = Vector3.MoveTowards (gameObject.transform.position, target.position, particleSpeed * Time.deltaTime);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

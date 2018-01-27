@@ -354,6 +354,9 @@ MonoBehaviour:
   player2: {fileID: 1555900033}
   smoothSpeed: 0.125
   offset: {x: 0, y: 5, z: -5}
+  particlePrefab: {fileID: 1499967563866180, guid: 015d55df32194424f92aceeca112b3f8,
+    type: 2}
+  transmissionDelay: 3
 --- !u!114 &894750730
 MonoBehaviour:
   m_ObjectHideFlags: 0
