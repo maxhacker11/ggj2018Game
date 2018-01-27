@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+	public GameObject player1;
+	public GameObject player2;
+	public GameObject spawn1;
+	public GameObject spawn2;
+	public GameObject pauseMenu;
+
 	[SerializeField]
 	float playerSmallHealth = 100.0f;
 	[SerializeField]
@@ -25,6 +31,17 @@ public class GameManager : MonoBehaviour {
 
 	PlayeCamera cameraScript;
 
+	void Death()
+	{
+		if (player1.transform.position.y < -20 || player2.transform.position.y < -20) {
+			player1.transform.position = spawn1.transform.position;
+			player2.transform.position = spawn2.transform.position;
+
+			playerSmallHealth = 100.0f;
+			playerBigHealth = 100.0f;
+		}
+	}
+
 	void Start()
 	{
 		cameraScript = GetComponent<PlayeCamera> ();
@@ -42,5 +59,16 @@ public class GameManager : MonoBehaviour {
 			bigHealth.fillAmount = playerBigHealth / 100.0f;
 		}
 		scoreText.text = score.ToString();
+		ActivatePauseMenu ();
+	}
+
+	void ActivatePauseMenu()
+	{
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			if(pauseMenu.activeSelf)
+				pauseMenu.SetActive(false);
+			else
+				pauseMenu.SetActive(true);
+		}
 	}
 }

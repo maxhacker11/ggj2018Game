@@ -63,7 +63,6 @@ public class PlayerMovement : MonoBehaviour {
 
 		rb.velocity = new Vector3 (currentSpeed * xInput, rb.velocity.y, currentSpeed * yInput);
 	}
-
 	bool IsGrounded()
 	{
 		//ADD CHARACTER HEIGHT / 2 + 0.1F
