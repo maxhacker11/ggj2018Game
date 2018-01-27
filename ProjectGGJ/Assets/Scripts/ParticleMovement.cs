@@ -10,8 +10,10 @@ public class ParticleMovement : MonoBehaviour {
 
 	void Update()
 	{
-		if (transform.position == target.position)
-			Destroy (gameObject);
+		if (transform.position == target.position) {
+			GetComponent<ParticleSystem> ().Stop ();
+			Destroy (gameObject, 5.0f);
+		}
 		transform.position = Vector3.MoveTowards (gameObject.transform.position, target.position, particleSpeed * Time.deltaTime);
 	}
 
