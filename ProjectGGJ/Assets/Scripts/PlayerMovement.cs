@@ -26,11 +26,13 @@ public class PlayerMovement : MonoBehaviour {
 	bool isFat;
 
 	Rigidbody rb;
+	public Animator animator;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		startingHeight = jumpHeight;
+		animator = GetComponent<Animator> ();
 	}
 
 	void Update(){
@@ -57,16 +59,21 @@ public class PlayerMovement : MonoBehaviour {
 		if (!isFat) {
 			if (Input.GetKeyDown (KeyCode.Space) && IsGrounded ()) {
 				rb.velocity = new Vector3 (rb.velocity.x, jumpHeight, rb.velocity.z);
-			} else
+				animator.SetTrigger ("jumping");
+			} else {
 				jumpHeight = startingHeight;
+			}
 		}
 
 		rb.velocity = new Vector3 (currentSpeed * xInput, rb.velocity.y, currentSpeed * yInput);
+
+		float animationSpeedPercent = ((running) ? currentSpeed / runSpeed : currentSpeed / walkSpeed * 0.5f);
+		animator.SetFloat ("Move", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
 	}
 	bool IsGrounded()
 	{
 		//ADD CHARACTER HEIGHT / 2 + 0.1F
-		if(Physics.Raycast(transform.position, Vector3.down, GetComponent<Collider>().bounds.extents.y + 0.1f))
+		if(Physics.Raycast(transform.position, Vector3.down, GetComponent<Collider>().bounds.extents.y + 0.4f))
 			return true;
 
 		return false;
