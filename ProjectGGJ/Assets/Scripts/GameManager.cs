@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
@@ -11,11 +12,18 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]
 	float damage = 1.0f;
 
+	[HideInInspector]
+	public static int score;
+
+	GameObject infoPanel;
+	Text scoreText;
 	PlayeCamera cameraScript;
 
 	// Use this for initialization
 	void Start () {
 		cameraScript = GetComponent<PlayeCamera> ();
+		infoPanel = GameObject.Find ("InfoPanel");
+		scoreText = infoPanel.transform.Find ("ScoreText").GetComponent<Text> ();
 	}
 	
 	// Update is called once per frame
@@ -25,5 +33,6 @@ public class GameManager : MonoBehaviour {
 		} else {
 			playerBigHealth -= damage * Time.deltaTime;
 		}
+		scoreText.text = score.ToString();
 	}
 }
