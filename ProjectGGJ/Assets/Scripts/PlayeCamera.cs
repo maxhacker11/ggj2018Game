@@ -2,7 +2,6 @@
 
 public class PlayeCamera : MonoBehaviour {
 
-	[HideInInspector]
 	public bool activeOne;
 
 	public GameObject player1;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -43,19 +44,22 @@ public class GameManager : MonoBehaviour {
 	void Death()
 	{
 		if (player1.transform.position.y < -20 || player2.transform.position.y < -20) {
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+			/*
 			player1.transform.position = spawn1.transform.position;
 			player2.transform.position = spawn2.transform.position;
 
 			playerSmallHealth = 100.0f;
 			playerBigHealth = 100.0f;
+			*/
 		}
 	}
 
 	void Start()
 	{
-		goldObject = GameObject.Find ("Gold").GetComponent<Text>();
-		silverObject = GameObject.Find ("Silver").GetComponent<Text>();
-		bronzeObject = GameObject.Find ("Bronze").GetComponent<Text>();
+		//goldObject = GameObject.Find ("Gold").GetComponent<Text>();
+		//silverObject = GameObject.Find ("Silver").GetComponent<Text>();
+		//bronzeObject = GameObject.Find ("Bronze").GetComponent<Text>();
 
 		cameraScript = GetComponent<PlayeCamera> ();
 	}
@@ -70,8 +74,9 @@ public class GameManager : MonoBehaviour {
 			bigHealth.fillAmount = playerBigHealth / 100.0f;
 		}
 		ActivatePauseMenu ();
-		GetGold ();
-		UpdateGold ();
+		Death ();
+		//GetGold ();
+		//UpdateGold ();
 	}
 
 	void GetGold()
