@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour {
 		scoreText = infoPanel.transform.Find ("ScoreText").GetComponent<Text> ();
 	}
 	
-	// Update is called once per frame
+	// Update is called once per frame 
 	void Update () {
 		if (cameraScript.activeOne == true) {
 			playerSmallHealth -= damage * Time.deltaTime;
