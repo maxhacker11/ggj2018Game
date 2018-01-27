@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour {
 
 	GameObject infoPanel;
 	Text scoreText;
+	[SerializeField]
+	Image smallHealth;
+	[SerializeField]
+	Image bigHealth;
 
 	PlayeCamera cameraScript;
 
@@ -32,8 +36,10 @@ public class GameManager : MonoBehaviour {
 	{
 		if (cameraScript.activeOne == true) {
 			playerSmallHealth -= damage * Time.deltaTime;
+			smallHealth.fillAmount = playerSmallHealth / 100.0f;
 		} else {
 			playerBigHealth -= damage * Time.deltaTime;
+			bigHealth.fillAmount = playerBigHealth / 100.0f;
 		}
 		scoreText.text = score.ToString();
 	}
