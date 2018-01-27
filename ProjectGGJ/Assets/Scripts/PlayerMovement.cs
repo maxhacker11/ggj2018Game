@@ -72,4 +72,17 @@ public class PlayerMovement : MonoBehaviour {
 
 		return false;
 	}
+
+	void OnTriggerStay(Collider col)
+	{
+		if (col.gameObject.tag == "Platform") {
+			transform.parent = col.transform;
+		}
+	}
+
+	void OnTriggerExit(Collider col)
+	{
+		if (col.gameObject.tag == "Platform")
+			transform.parent = null;
+	}
 }

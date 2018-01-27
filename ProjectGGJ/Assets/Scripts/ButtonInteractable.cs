@@ -4,7 +4,6 @@ using System.Collections;
 public class ButtonInteractable : MonoBehaviour 
 {
 	public GameObject[] riseableObjects;
-	public GameObject[] movableObjects;
 
 	//Riseable objects
 	public float maxHeight;

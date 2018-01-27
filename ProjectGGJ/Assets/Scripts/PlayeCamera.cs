@@ -29,6 +29,10 @@ public class PlayeCamera : MonoBehaviour {
 
 	void Update()
 	{
+		Vector3 desiredPos = target.position + offset;
+		Vector3 smoothPos = Vector3.Lerp (desiredPos, transform.position, smoothSpeed);
+		transform.position = smoothPos;
+
 		if (Input.GetKeyDown (KeyCode.E) && Time.time - lastTransmission > transmissionDelay) 
 		{ 
 			lastTransmission = Time.time;
@@ -48,12 +52,4 @@ public class PlayeCamera : MonoBehaviour {
 			soulParticle.GetComponent<ParticleMovement> ().target = target;
 		}
 	}
-
-	void FixedUpdate()
-	{
-		Vector3 desiredPos = target.position + offset;
-		Vector3 smoothPos = Vector3.Lerp (transform.position, desiredPos, smoothSpeed);
-		transform.position = smoothPos;
-	}
-		
 }
