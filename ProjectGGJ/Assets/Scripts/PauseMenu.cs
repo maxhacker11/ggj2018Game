@@ -23,7 +23,7 @@ public class PauseMenu : MonoBehaviour {
 
 	void NextLvl()
 	{
-		SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
+		gameObject.SetActive (false);
 	}
 
 	void Restart()

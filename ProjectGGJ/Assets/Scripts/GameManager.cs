@@ -11,6 +11,17 @@ public class GameManager : MonoBehaviour {
 	public GameObject spawn2;
 	public GameObject pauseMenu;
 
+	Text goldObject;
+	Text silverObject;
+	Text bronzeObject;
+
+	[HideInInspector]
+	public static int bronze;
+	[HideInInspector]
+	public static int silver;
+	[HideInInspector]
+	public static int gold = 40;
+
 	[SerializeField]
 	float playerSmallHealth = 100.0f;
 	[SerializeField]
@@ -22,8 +33,6 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public static int score;
 
-	GameObject infoPanel;
-	Text scoreText;
 	[SerializeField]
 	Image smallHealth;
 	[SerializeField]
@@ -44,9 +53,11 @@ public class GameManager : MonoBehaviour {
 
 	void Start()
 	{
+		goldObject = GameObject.Find ("Gold").GetComponent<Text>();
+		silverObject = GameObject.Find ("Silver").GetComponent<Text>();
+		bronzeObject = GameObject.Find ("Bronze").GetComponent<Text>();
+
 		cameraScript = GetComponent<PlayeCamera> ();
-		infoPanel = GameObject.Find ("InfoPanel");
-		scoreText = infoPanel.transform.Find ("ScoreText").GetComponent<Text> ();
 	}
 
 	void Update()
@@ -58,8 +69,38 @@ public class GameManager : MonoBehaviour {
 			playerBigHealth -= damage * Time.deltaTime;
 			bigHealth.fillAmount = playerBigHealth / 100.0f;
 		}
-		scoreText.text = score.ToString();
 		ActivatePauseMenu ();
+		GetGold ();
+		UpdateGold ();
+	}
+
+	void GetGold()
+	{
+		if (score == 3)
+			gold++;
+		else if (score == 2)
+			silver++;
+		else if (score == 1)
+			bronze++;
+
+		score = 0;
+	}
+
+	void UpdateGold()
+	{
+		bronzeObject.text = PlayerPrefs.GetInt ("Bronze").ToString();
+		bronzeObject.text =  (int.Parse(bronzeObject.text) + bronze).ToString();
+		PlayerPrefs.SetInt ("Bronze", int.Parse (bronzeObject.text));
+
+		Debug.Log (PlayerPrefs.GetInt ("Bronze"));
+
+		silverObject.text = PlayerPrefs.GetInt ("Silver").ToString();
+		silverObject.text =  (int.Parse(silverObject.text) + silver).ToString();
+		PlayerPrefs.SetInt ("Silver", int.Parse (silverObject.text));
+
+		goldObject.text = PlayerPrefs.GetInt ("Gold").ToString();
+		goldObject.text =  (int.Parse(goldObject.text) + gold).ToString();
+		PlayerPrefs.SetInt ("Gold", int.Parse (goldObject.text));
 	}
 
 	void ActivatePauseMenu()
