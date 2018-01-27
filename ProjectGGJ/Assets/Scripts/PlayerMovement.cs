@@ -60,7 +60,8 @@ public class PlayerMovement : MonoBehaviour {
 			} else
 				jumpHeight = startingHeight;
 		}
-		rb.velocity = new Vector3 (currentSpeed * xInput, rb.velocity.y, currentSpeed * yInput);
+		if(IsGrounded())
+			rb.velocity = new Vector3 (currentSpeed * xInput, rb.velocity.y, currentSpeed * yInput);
 	}
 
 	bool IsGrounded()
