@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4887539846867332}
   - component: {fileID: 33938628774137164}
   - component: {fileID: 23663988739580814}
+  - component: {fileID: 65460093132450898}
   m_Layer: 0
   m_Name: cristal5
   m_TagString: Untagged
@@ -80,3 +81,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1300133339283888}
   m_Mesh: {fileID: 4300000, guid: e555f25a049749442825a87fb9dec041, type: 3}
+--- !u!65 &65460093132450898
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1300133339283888}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.015381798, y: 0.018969856, z: 0.0124994125}
+  m_Center: {x: -0.0018129379, y: -0.0031387908, z: 0.003968062}

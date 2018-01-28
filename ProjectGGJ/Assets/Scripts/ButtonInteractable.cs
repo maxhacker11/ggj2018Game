@@ -11,6 +11,13 @@ public class ButtonInteractable : MonoBehaviour
 	float minHeight;
 	bool rise;
 
+	[SerializeField]
+	bool ActivateObject;
+	[SerializeField]
+	GameObject objectToActivate;
+
+	Animator animator;
+
 	void Start()
 	{
 		try{
@@ -19,6 +26,8 @@ public class ButtonInteractable : MonoBehaviour
 		catch {
 			minHeight = 0.0f;
 		}
+
+		animator = GetComponent<Animator> ();
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -26,6 +35,11 @@ public class ButtonInteractable : MonoBehaviour
 		if (other.tag == "Player") {
 			
 			StartCoroutine(ChangeHeight ());
+
+			if (ActivateObject) {
+				objectToActivate.GetComponent<Platform> ().enabled = true;
+				animator.SetTrigger ("pressed");
+			}
 		}
 	}
 

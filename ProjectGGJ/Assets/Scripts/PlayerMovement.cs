@@ -28,6 +28,11 @@ public class PlayerMovement : MonoBehaviour {
 	Rigidbody rb;
 	public Animator animator;
 
+	float GroundDistance;
+	bool isGrounded = false;
+
+	bool running = false;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
@@ -51,32 +56,30 @@ public class PlayerMovement : MonoBehaviour {
 			float targetRotation = Mathf.Atan2 (xInput, yInput) * Mathf.Rad2Deg;
 			transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle (transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
 		}
-
-		bool running = Input.GetKey (KeyCode.LeftShift);
+			
+		if (!isFat)
+			running = Input.GetKey (KeyCode.LeftShift);
+		
 		float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDirection.magnitude;
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
 
 		if (!isFat) {
-			if (Input.GetKeyDown (KeyCode.Space) && IsGrounded ()) {
-				rb.velocity = new Vector3 (rb.velocity.x, jumpHeight, rb.velocity.z);
-				animator.SetTrigger ("jumping");
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				if (Physics.Raycast (transform.position + Vector3.up, -Vector3.up, 2.0f)) {
+					rb.velocity = new Vector3 (rb.velocity.x, jumpHeight, rb.velocity.z);
+					animator.SetTrigger ("jumping");
+				}
 			} else {
 				jumpHeight = startingHeight;
 			}
+		} else {
+				running = false;
 		}
 
 		rb.velocity = new Vector3 (currentSpeed * xInput, rb.velocity.y, currentSpeed * yInput);
 
 		float animationSpeedPercent = ((running) ? currentSpeed / runSpeed : currentSpeed / walkSpeed * 0.5f);
 		animator.SetFloat ("Move", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
-	}
-	bool IsGrounded()
-	{
-		//ADD CHARACTER HEIGHT / 2 + 0.1F
-		if(Physics.Raycast(transform.position, Vector3.down, GetComponent<Collider>().bounds.extents.y + 0.4f))
-			return true;
-
-		return false;
 	}
 
 	void OnTriggerStay(Collider col)

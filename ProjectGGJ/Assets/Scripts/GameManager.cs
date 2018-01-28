@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour {
 
 	void Death()
 	{
-		if (player1.transform.position.y < -20 || player2.transform.position.y < -20) {
+		if ((player1.transform.position.y < -20 || player2.transform.position.y < -20) || (playerSmallHealth <= 0 || playerBigHealth <= 0)) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 			/*
 			player1.transform.position = spawn1.transform.position;
@@ -57,9 +57,9 @@ public class GameManager : MonoBehaviour {
 
 	void Start()
 	{
-		//goldObject = GameObject.Find ("Gold").GetComponent<Text>();
-		//silverObject = GameObject.Find ("Silver").GetComponent<Text>();
-		//bronzeObject = GameObject.Find ("Bronze").GetComponent<Text>();
+		goldObject = GameObject.Find ("Gold").GetComponent<Text>();
+		silverObject = GameObject.Find ("Silver").GetComponent<Text>();
+		bronzeObject = GameObject.Find ("Bronze").GetComponent<Text>();
 
 		cameraScript = GetComponent<PlayeCamera> ();
 	}
@@ -75,8 +75,8 @@ public class GameManager : MonoBehaviour {
 		}
 		ActivatePauseMenu ();
 		Death ();
-		//GetGold ();
-		//UpdateGold ();
+		GetGold ();
+		UpdateGold ();
 	}
 
 	void GetGold()
