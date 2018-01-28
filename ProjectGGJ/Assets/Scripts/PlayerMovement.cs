@@ -56,29 +56,44 @@ public class PlayerMovement : MonoBehaviour {
 		float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDirection.magnitude;
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
 
-		if (!isFat) {
+		/*if (!isFat) {
 			if (Input.GetKeyDown (KeyCode.Space) && IsGrounded ()) {
 				rb.velocity = new Vector3 (rb.velocity.x, jumpHeight, rb.velocity.z);
 				animator.SetTrigger ("jumping");
 			} else {
 				jumpHeight = startingHeight;
 			}
-		}
+		}*/
 
-		rb.velocity = new Vector3 (currentSpeed * xInput, rb.velocity.y, currentSpeed * yInput);
+		if (Input.GetKeyDown (KeyCode.Space) && IsGrounded ()) 
+			rb.velocity = new Vector3 (rb.velocity.x, jumpHeight, rb.velocity.z);
+			animator.SetTrigger ("jumping");
+
+		//Problem here? IsGrounded is not being detected properly.
+		if (IsGrounded () && Input.GetKeyDown (KeyCode.Space)) {
+			Debug.Log ("Has just jumpped. Moved off the ground and pressed space");
+			rb.velocity = new Vector3 (currentSpeed * xInput, jumpHeight, currentSpeed * yInput);
+		} else {
+			rb.velocity = new Vector3 (currentSpeed * xInput, rb.velocity.y, currentSpeed * yInput);
+		}
 
 		float animationSpeedPercent = ((running) ? currentSpeed / runSpeed : currentSpeed / walkSpeed * 0.5f);
 		animator.SetFloat ("Move", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
 	}
+
 	bool IsGrounded()
 	{
 		//ADD CHARACTER HEIGHT / 2 + 0.1F
-		if(Physics.Raycast(transform.position, Vector3.down, GetComponent<Collider>().bounds.extents.y + 0.4f))
+		if (Physics.Raycast (transform.position, Vector3.down, GetComponent<Collider> ().bounds.extents.y + 1f)) {
+			Debug.DrawRay (transform.position, Vector3.down, Color.red);
 			return true;
+		}
 
+		Debug.DrawRay (transform.position, Vector3.up, Color.green);
 		return false;
 	}
 
+	//Platform only
 	void OnTriggerStay(Collider col)
 	{
 		if (col.gameObject.tag == "Platform") {
