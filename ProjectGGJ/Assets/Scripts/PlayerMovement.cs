@@ -29,7 +29,6 @@ public class PlayerMovement : MonoBehaviour {
 	public Animator animator;
 
 	float GroundDistance;
-	bool isGrounded = false;
 
 	bool running = false;
 

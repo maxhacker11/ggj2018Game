@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject spawn1;
 	public GameObject spawn2;
 	public GameObject pauseMenu;
+	public GameObject endMenu;
 
 	Text goldObject;
 	Text silverObject;
@@ -21,7 +22,9 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]
 	public static int silver;
 	[HideInInspector]
-	public static int gold = 40;
+	public static int gold;
+
+	bool didOnce = false;
 
 	[SerializeField]
 	float playerSmallHealth = 100.0f;
@@ -44,7 +47,9 @@ public class GameManager : MonoBehaviour {
 	void Death()
 	{
 		if ((player1.transform.position.y < -20 || player2.transform.position.y < -20) || (playerSmallHealth <= 0 || playerBigHealth <= 0)) {
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+			UpdateGold ();
+			endMenu.SetActive(true);
+			//SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 			/*
 			player1.transform.position = spawn1.transform.position;
 			player2.transform.position = spawn2.transform.position;
@@ -57,9 +62,9 @@ public class GameManager : MonoBehaviour {
 
 	void Start()
 	{
-		goldObject = GameObject.Find ("Gold").GetComponent<Text>();
-		silverObject = GameObject.Find ("Silver").GetComponent<Text>();
-		bronzeObject = GameObject.Find ("Bronze").GetComponent<Text>();
+		goldObject = endMenu.transform.GetChild (0).GetComponent<Text>();
+		silverObject = endMenu.transform.GetChild (1).GetComponent<Text>();
+		bronzeObject = endMenu.transform.GetChild (2).GetComponent<Text>();
 
 		cameraScript = GetComponent<PlayeCamera> ();
 	}
@@ -74,38 +79,30 @@ public class GameManager : MonoBehaviour {
 			bigHealth.fillAmount = playerBigHealth / 100.0f;
 		}
 		ActivatePauseMenu ();
+		//GetGold ();
 		Death ();
-		GetGold ();
-		UpdateGold ();
-	}
-
-	void GetGold()
-	{
-		if (score == 3)
-			gold++;
-		else if (score == 2)
-			silver++;
-		else if (score == 1)
-			bronze++;
-
-		score = 0;
 	}
 
 	void UpdateGold()
 	{
-		bronzeObject.text = PlayerPrefs.GetInt ("Bronze").ToString();
-		bronzeObject.text =  (int.Parse(bronzeObject.text) + bronze).ToString();
-		PlayerPrefs.SetInt ("Bronze", int.Parse (bronzeObject.text));
+		if (!didOnce) {
+			PlayerPrefs.SetInt ("Bronze", bronze + PlayerPrefs.GetInt ("Bronze"));
+			PlayerPrefs.SetInt ("Silver", bronze + PlayerPrefs.GetInt ("Silver"));
+			PlayerPrefs.SetInt ("Gold", bronze + PlayerPrefs.GetInt ("Gold"));
+			didOnce = true;
+		}
 
-		Debug.Log (PlayerPrefs.GetInt ("Bronze"));
+		//bronzeObject.text = PlayerPrefs.GetInt ("Bronze").ToString();
+		//bronzeObject.text =  (int.Parse(bronzeObject.text) + bronze).ToString();
+		bronzeObject.text = (bronze + PlayerPrefs.GetInt("Bronze")).ToString();
 
-		silverObject.text = PlayerPrefs.GetInt ("Silver").ToString();
-		silverObject.text =  (int.Parse(silverObject.text) + silver).ToString();
-		PlayerPrefs.SetInt ("Silver", int.Parse (silverObject.text));
+		//silverObject.text = PlayerPrefs.GetInt ("Silver").ToString();
+		//silverObject.text =  (int.Parse(silverObject.text) + silver).ToString();
+		silverObject.text = (silver + PlayerPrefs.GetInt("Silver")).ToString();
 
-		goldObject.text = PlayerPrefs.GetInt ("Gold").ToString();
-		goldObject.text =  (int.Parse(goldObject.text) + gold).ToString();
-		PlayerPrefs.SetInt ("Gold", int.Parse (goldObject.text));
+		//goldObject.text = PlayerPrefs.GetInt ("Gold").ToString();
+		//goldObject.text =  (int.Parse(goldObject.text) + gold).ToString();
+		goldObject.text = (gold + PlayerPrefs.GetInt("Gold")).ToString();
 	}
 
 	void ActivatePauseMenu()
